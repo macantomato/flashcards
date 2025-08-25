@@ -6,14 +6,16 @@ function makeSet(name) {
         id: newId(),
         name: (typeof name === "string "),
         createdAt: now,
-        updatedAt: "blank",
+        updatedAt: now,
         cards: []
     }; 
 }
 
 function newId() {
-    const Id = Date.now();
+    const Id = crypto.randomUUID(); //way better id gen
     return Id;
 }
 
-
+function makeCard(front, back) {
+    
+}
