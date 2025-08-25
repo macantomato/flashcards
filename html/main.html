@@ -5,28 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Flashcards MVP</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <!-- App container -->
-    <header>
-      <h1>Flashcard Maker</h1>
+    <header class="site-header">
+      <div class="container header-bar">
+        <div class="header-left">
+          <h1>Flashcards - A free trainer </h1>
+        </div>
+
+        <div class="header-right">
+          <button id="linkGit">Link - GitHub </button>
+          <button id="linkSelfSite">Link - Portfolio </button>
+        </div>
+      </div>
     </header>
 
-    <main id="app">
-      <section id="sets">
-        <p>Create and list sets will go here.</p>
-      </section>
+    <main class="container app">
+      <div class="grid-2">
+        <aside class="panel panel-sets">
+          <!-- For the sets location etc - (left) -->
+           <div class="panel-body">
+            <h2>Sets</h2>
 
-      <section id="editor">
-        <p>Card editor goes here.</p>
-      </section>
+           <!-- Set row -->
+           <div class="add-set">
+            <label class="visually-hidden" for="newSetName">New set name</label>
+            <input id="newSetName" type="text" placeholder="New set name">
+            <button id="buttonAddSet" type="button">Add</button>
+           </div>
 
-      <section id="practice">
-        <p>Practice view goes here.</p>
-      </section>
+           <ul id="setsList" class="sets-list">
+            <!--Insert list logic later -->
+           </ul>
+           </div>
+        </aside>
+
+        <section class="panel panel-content">
+          <!-- For the sets info/edit etc - (right) -->
+        </section>
+      </div>
     </main>
 
-    <script src="js/app.js" defer></script>
+    <script src="../js/app.js" defer></script>
   </body>
 </html>
