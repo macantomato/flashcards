@@ -5,6 +5,12 @@ let store = loadFromDisk();
 const nameSet = document.getElementById("newSetName");
 const addButton = document.getElementById("buttonAddSet");
 
+//generating random Id with UUID 
+function newId() {
+    const Id = crypto.randomUUID(); //way better id gen
+    return Id;
+}
+
 //loads for storing ---------------------------------------------------------------------------------
 function makeDefEnvelope() {
     return { version: 1, sets: [] };
@@ -89,7 +95,7 @@ addButton.addEventListener("click", () => {
     const name = nameSet.value.trim();
     console.log(typeof(name));
     const newSet = makeSet(name);
-    store.sets.push(newSet);
+    store.sets.push(newSet); 
     saveToDisk(store);
     nameSet.value = "";
     renderSets();
@@ -98,12 +104,6 @@ addButton.addEventListener("click", () => {
 nameSet.addEventListener("keydown", (e) => {
     if (e.key === "Enter") addButton.click();
 })
-
-//generating random Id with UUID 
-function newId() {
-    const Id = crypto.randomUUID(); //way better id gen
-    return Id;
-}
 
 
 renderSets();
