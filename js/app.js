@@ -86,9 +86,30 @@ function renderSets() {
         const count = document.createElement("strong");
         count.textContent = `(${set.cards.length})`;
 
+        //Makes the set interactable, open specific 
+      li.dataset.setId = set.Id;
+      li.style.cursor = "pointer";
+      li.addEventListener("click", () => openEditor(set.Id));
+      
         li.append(title, count);
         listSets.appendChild(li);
     }
+}
+
+function openEditor(setId) {
+  currentSetId = setId;
+  let set = null;
+  for (const s of store.sets) {
+    if (s.Id === setId) {
+      set = s;
+      break;
+    }
+    if (!set) {
+      return;
+    }
+  }
+
+  
 }
 
 addButton.addEventListener("click", () => {
