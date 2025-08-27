@@ -41,8 +41,42 @@
            </div>
         </aside>
 
+          <!-- Editor view -->
         <section class="panel panel-content">
-          <!-- For the sets info/edit etc - (right) -->
+           <div id="viewEditor"  >
+            <!--Editor top bar -->
+            <div id="topBar">
+              <h2 id="editorTitle">
+                Edit set<span id="editorSet">-</span>
+              </h2>
+            </div>
+            <div id="editorActions">
+              <button id="editorBtnPractice">Practice </button>
+              <button id="editorBtnDelete">Delete </button>
+            </div>
+            <!--Rename set -->
+            <div id="renameRow">
+              <div class="row">
+                <label class="visually-hidden" for="renameSet">Rename set</label>
+                <input id="renameSet" type="text" placeholder="Rename set">
+                <button id="btnRenameSet" type="button">Rename </button>
+              </div>
+            </div>
+            <div class="editor-addcard">
+              <div class="row">
+                <label class="visually-hidden" for="addCardFront">Front</label>
+                <input id="addCardFront" type="text" placeholder="Front (Q)">
+              </div>
+              <div class="row">
+                <label class="visually-hidden" for="addCardBack">Back</label>
+                <input id="addCardBack" type="text" placeholder="Back (Ans)">
+              </div>
+              <button id="btnAddCard" type="button">Add card</button>
+            </div>
+            <!--Card list (js) fill -->
+            <ul id="cardList" class="cards-list" aria-label="Cards in this set">
+            </ul>
+           </div>
         </section>
       </div>
     </main>
