@@ -142,8 +142,7 @@ function openEditor(setId) {
   document.getElementById("viewEditor").hidden = false;
 
   //render cards from set
-  //renderCards();
-
+  renderCards();
 }
 
 //Delete button logic (set)
@@ -170,6 +169,85 @@ buttonDeleteSet.addEventListener("click", () => {
   renderSets();  
 })
 
+//render cards
+function renderCards() {
+  //find right set
+  let set = null;
+  for (const s of store.sets) {
+    if (s.id === currentSetId) { 
+      set = s; break; 
+    }
+  }
+  if (!set) return;
+
+  const ulNode = document.getElementById("cardList");
+  ulNode.innerHTML = "";
+
+  if (set.cards.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = " No card's added yet, add one below! ";
+    ulNode.appendChild(li);
+    return;
+  }
+
+  //for each card
+  for (const card of set.cards) {
+    const li = document.createElement("li");
+    li.className = "card-item";
+    li.dataset.cardId = card.id;
+
+    const front = document.createElement("div");
+    front.className = "card-front";
+    front.textContent = "Question: " + card.front;
+
+    const back = document.createElement("div");
+    back.className = "card-back";
+    back.textContent = "Answer: " + card.back;
+
+    const del = document.createElement("button");
+    del.className = "delBtnCard";
+    del.textContent = "Delete Card";
+
+    del.addEventListener("click", () => {
+      set.cards = set.cards.filter(c => c.id !== card.id);
+      saveToDisk(store);
+      renderSets(); //update set
+      renderCards(); //updates count on cards
+    })
+
+    li.append(front, back, del);
+    ulNode.appendChild(li);
+  }
+}
+
+//Button add card
+const addCardBtn = document.getElementById("btnAddCard");
+const frontNo = document.getElementById("addCardFront");
+const backNo  = document.getElementById("addCardBack");
+addCardBtn.addEventListener("click", () => {
+  let set = null;
+  for (const s of store.sets) {
+    if (s.id === currentSetId) { 
+      set = s; break; 
+    }
+  }
+  if (!set) return;
+
+  //trim value from input => string
+  const front = frontNo.value.trim();
+  const back  = backNo.value.trim();
+  if (!front && !back) { frontNo.focus(); return; } //empty n empty
+  set.cards.push(makeCard(front, back));
+  set.updatedAt = Date.now();
+
+  //refresh UI
+  frontNo.value = "";
+  backNo.value  = "";
+  saveToDisk(store);
+  renderCards();
+  renderSets();
+  frontNo.focus(); //For fast making of other cards (pointer/focus goes to front)
+})
 //show
 renderSets();
 

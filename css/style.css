@@ -1,5 +1,7 @@
+/* main body - backgorund etc -------------------------------------------------------------------------------------------*/
 body { background: #3e5ea8; color: #e5e7eb; font-family: system-ui, sans-serif; }
 
+/* Set list - laft hand side --------------------------------------------------------------------------------------------*/
 #setsList li {
     cursor: pointer;
     padding: 8px 10px;
