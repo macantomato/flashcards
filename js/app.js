@@ -4,11 +4,12 @@ let store = loadFromDisk();
 
 const nameSet = document.getElementById("newSetName");
 const addButton = document.getElementById("buttonAddSet");
+let currentSetId = null;
 
 //generating random Id with UUID 
 function newId() {
-    const Id = crypto.randomUUID(); //way better id gen
-    return Id;
+    const id = crypto.randomUUID(); //way better id gen
+    return id;
 }
 
 //loads for storing ---------------------------------------------------------------------------------
@@ -39,6 +40,7 @@ function saveToDisk(envelope) {
  //set - card logic -----------------------------------------------------------------------------
 function makeSet(name) {
   const now = Date.now(); //cur time
+  let n = "";
   //checker of corr type of set (mb empty)
   if (typeof(name) === "string" ) {
     n = name;
@@ -87,9 +89,9 @@ function renderSets() {
         count.textContent = `(${set.cards.length})`;
 
         //Makes the set interactable, open specific 
-      li.dataset.setId = set.Id;
+      li.dataset.setId = set.id;
       li.style.cursor = "pointer";
-      li.addEventListener("click", () => openEditor(set.Id));
+      li.addEventListener("click", () => openEditor(set.id));
       
         li.append(title, count);
         listSets.appendChild(li);
@@ -97,20 +99,29 @@ function renderSets() {
 }
 
 function openEditor(setId) {
+  //track the current open set (global)
   currentSetId = setId;
   let set = null;
   for (const s of store.sets) {
-    if (s.Id === setId) {
-      set = s;
-      break;
-    }
-    if (!set) {
-      return;
+    if (s.id === setId) { 
+      set = s; break; 
     }
   }
-
+  if (!set) return;
   
+  //Fill set name, and connect input for renaming
+  document.getElementById("editorSet").textContent = `- ${set.name}`;
+  const renameInput = document.getElementById("renameSetInput");
+  renameInput.value = set.name;
+
+  //Make it visible
+  document.getElementById("viewEditor").hidden = false;
+
+  //render cards from set
+  //renderCards();
+
 }
+
 
 addButton.addEventListener("click", () => {
     const name = nameSet.value.trim();

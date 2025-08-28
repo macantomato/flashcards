@@ -1,1 +1,14 @@
 body { background: #3e5ea8; color: #e5e7eb; font-family: system-ui, sans-serif; }
+
+#setsList li {
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 6px;
+    list-style: none; 
+}
+
+#setsList li:hover {
+    background: #50a53f;
+    color :aqua;
+}
+
