@@ -98,7 +98,7 @@ function renderSets() {
     }
 }
 
-//new set - name
+//new set - name 
 addButton.addEventListener("click", () => {
     const name = nameSet.value.trim();
     console.log(typeof(name));
@@ -107,10 +107,18 @@ addButton.addEventListener("click", () => {
     saveToDisk(store);
     nameSet.value = "";
     renderSets();
-})
-
+}) 
+//enter listener
 nameSet.addEventListener("keydown", (e) => {
     if (e.key === "Enter") addButton.click();
+})
+
+//link for git
+const btnGit = document.getElementById("linkGit");
+btnGit.addEventListener("click", () => {
+  const url = btnGit.dataset.url;
+  if (!url) return;
+  window.open(url, "_blank", "noopener,noreferrer");
 })
 
 //right hand side ----------------------------------------------------------------------------------------------------------
