@@ -98,6 +98,22 @@ function renderSets() {
     }
 }
 
+//new set - name
+addButton.addEventListener("click", () => {
+    const name = nameSet.value.trim();
+    console.log(typeof(name));
+    const newSet = makeSet(name);
+    store.sets.push(newSet); 
+    saveToDisk(store);
+    nameSet.value = "";
+    renderSets();
+})
+
+nameSet.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") addButton.click();
+})
+
+//right hand side ----------------------------------------------------------------------------------------------------------
 function openEditor(setId) {
   //track the current open set (global)
   currentSetId = setId;
@@ -122,22 +138,31 @@ function openEditor(setId) {
 
 }
 
+//Delete button logic (set)
+const buttonDeleteSet = document.getElementById("editorBtnDelete");
+buttonDeleteSet.addEventListener("click", () => {
+  let set = null;
+  for (const s of store.sets) {
+    if (s.id === currentSetId) { 
+      set = s; break; 
+    }
+  }
+  if (!set) return;
 
-addButton.addEventListener("click", () => {
-    const name = nameSet.value.trim();
-    console.log(typeof(name));
-    const newSet = makeSet(name);
-    store.sets.push(newSet); 
-    saveToDisk(store);
-    nameSet.value = "";
-    renderSets();
+  //additional confirm
+  if (!confirm(`Delete set "${set.name}"?`)) return;
+
+  //filters out specific id, leaving rest of sets
+  store.sets = store.sets.filter(s => s.id !== currentSetId);
+
+  //store
+  saveToDisk(store);
+  currentSetId = null;                         //clear selection
+  document.getElementById("viewEditor").hidden = true; //hide editor
+  renderSets();  
 })
 
-nameSet.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") addButton.click();
-})
-
-
+//show
 renderSets();
 
 
