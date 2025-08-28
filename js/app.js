@@ -108,7 +108,7 @@ addButton.addEventListener("click", () => {
     nameSet.value = "";
     renderSets();
 }) 
-//enter listener
+//Listener - Enter for new set
 nameSet.addEventListener("keydown", (e) => {
     if (e.key === "Enter") addButton.click();
 })
@@ -248,6 +248,12 @@ addCardBtn.addEventListener("click", () => {
   renderSets();
   frontNo.focus(); //For fast making of other cards (pointer/focus goes to front)
 })
+
+//Listener - Enter (add card)
+backNo.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") addCardBtn.click();
+})
+
 //show
 renderSets();
 

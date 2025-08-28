@@ -77,6 +77,38 @@
             <ul id="cardList" class="cards-list" aria-label="Cards in this set">
             </ul>
            </div>
+           <!-- Practice View  ----------------------------------------------------------------------------------- -->
+           <section id="viewPractice" hidden>
+            <!-- Tool bar -->
+            <div class="practice-tool-bar">
+              <button id="exitPractice">Exit practice</button>
+              <h2 id="practiceTitle">Practice</h2>
+              <div id="practiceCounter"></div>
+              <div id="knownCounter"></div> <!-- Known cards counter -->
+              <div id="learningCounter"></div> <!-- Not yet learnt card's counter -->
+            </div>
+            <!-- Flashcard view -->
+             <div id="practiceCard" class="whole-card" role="button" aria-atomic="Flashcard">
+              <div id="flashCardFront" class="card-face-f"></div>
+              <div id="flashCardBack" class="card-face-b"></div>
+             </div>
+            <!-- Progress bar -->
+            <div class="progressBar">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <!-- Flashcard option -->
+             <div id="practiceOptions">
+              <button id="practiceBackBtn">Know (Enter)</button> <!-- Mark card as "known", won't show up for next -->
+              <button id="flipCardBtn">Flip (Space)</button>
+              <button id="practiceNextBtn">Next (Right-Arrow)</button> <!-- Next card without marking as known -->
+             </div>
+            <!-- End of set -->
+             <div id="practiceEnd" class="End" hidden>
+              <p>The set is done, restart or choose another set! </p>
+              <button id="btnPracticeReset" class="button"> Keep going with uknown card's</button>
+              <button id="btnPracticeHardReset">Reset set, restart</button>
+             </div>
+           </section>
         </section>
       </div>
     </main>
