@@ -5,6 +5,8 @@ let store = loadFromDisk();
 const nameSet = document.getElementById("newSetName");
 const addButton = document.getElementById("buttonAddSet");
 let currentSetId = null;
+//for practice
+let session = null;
 
 //generating random Id with UUID 
 function newId() {
@@ -300,7 +302,131 @@ btnReturnFPractice.addEventListener("click", () => {
   renderSets();
 })
 
-function renderPractice() {}
+function renderPractice() {
+  if (!session) return;
+
+  const card = currentCard();
+  const total = session.deck.length;
+  const idx = Math.min(session.i + 1, total);
+
+  document.getElementById("practiceCounter").textContent = `${idx}/${total}`;
+  document.getElementById("knownCounter").textContent = `Known: ${session.knownIds.length}`;
+  document.getElementsByName("learningCounter").textContent = `Learning: ${session.knownIds.length - session.deck.length}`;
+
+  const frontPractice = document.getElementById("flashCardFront");
+  const backPractice = document.getElementById("flashCardBack");
+
+  //show based on session showback
+  frontPractice.textContent = card ? card.front : "—";
+  backPractice.textContent  = card ? card.back  : "—";
+  backPractice.hidden  = !session.showBack;
+  frontPractice.hidden =  session.showBack;
+}
+
+function currentCard() {
+  return session ? session.deck[session.i] : null;
+}
+
+//flip the session card
+function flipCard() {
+  if (!session) return;
+  session.showBack = !session.showBack;
+  renderPractice();
+}
+
+//next card func
+function nextCard() {
+  if (!session) return;
+  session.i += 1;
+  console.log("The session index: " + session.i);
+  console.log("The session length: " + session.deck.length);
+  session.showBack = false;
+  if (session.i >= session.deck.length) {
+    console.log("The round has ended!");
+    endOfRound(); } else {
+      renderPractice();
+    }
+}
+
+//keep going skips so its not marked as known
+function keepGoing() {
+  nextCard();
+}
+
+//mark card as known, go next
+function markKnow() {
+  if (!session) return;
+  const c = currentCard(); 
+  if (!c) return;
+  session.knownIds.add(c.id);
+  nextCard();
+}
+
+//binding buttons
+//BUTTON: flip
+const btnFlipCard = document.getElementById("flipCardBtn");
+btnFlipCard.addEventListener("click", () => {
+  flipCard();
+})
+
+//BUTTON: know, next
+const btnKnowCard = document.getElementById("practiceKnowBtn");
+btnKnowCard.addEventListener("click", () => {
+  markKnow();
+})
+
+//BUTTON: learn, next
+const btnLearnCard = document.getElementById("practiceNextBtn");
+btnLearnCard.addEventListener("click", () => {
+  nextCard();
+})
+
+//BUTTON: Full reset set
+const btnFullReset = document.getElementById("btnPracticeHardReset");
+btnFullReset.addEventListener("click", () => {
+  fullRestart();
+})
+
+document.addEventListener("keydown", (e) => {
+  if (!session) return;
+  if (e.key === " ") { e.preventDefault(); flipCard(); }
+  else if (e.key === "ArrowRight") keepGoing();
+  else if (e.key === "ArrowLeft") markKnow();
+  else if (e.key === "Escape") exitPractice();
+});
+
+//end of round
+function endOfRound() {
+  if (!session) return;
+  document.getElementById("learningCounter").hidden = true;
+  document.getElementById("knownCounter").hidden = true;
+  document.getElementById("practiceCounter").hidden = true;
+  document.getElementById("practiceCard").hidden = true;
+  document.getElementById("progressBar").hidden = true;
+  document.getElementById("practiceOptions").hidden = true;
+  document.getElementById("practiceEnd").hidden = false;
+  return;
+}
+
+function keepLearning() {
+  if (!session) return;
+}
+
+function fullRestart() {
+  //reverse
+  document.getElementById("learningCounter").hidden = false;
+  document.getElementById("knownCounter").hidden = false;
+  document.getElementById("practiceCounter").hidden = false;
+  document.getElementById("practiceCard").hidden = false;
+  document.getElementById("progressBar").hidden = false;
+  document.getElementById("practiceOptions").hidden = false;
+  document.getElementById("practiceEnd").hidden = true;
+
+  //start practice again as normal
+  session.i = 1;
+  startPractice();
+}
+
 //show
 renderSets();
 
