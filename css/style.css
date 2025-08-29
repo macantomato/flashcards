@@ -1,6 +1,22 @@
 /* main body - backgorund etc -------------------------------------------------------------------------------------------*/
 body { background: #3e5ea8; color: #e5e7eb; font-family: system-ui, sans-serif; }
 
+/*Git - Portfolio Links*/
+#linkGit {
+    border-radius: 6px;
+}
+#linkGit:hover {
+    background: #3e83a8;
+}
+
+#linkSelfSite {
+    border-radius: 6px;
+}
+#linkSelfSite:hover {
+    background: #3e83a8;
+}
+
+
 /* Set list - laft hand side --------------------------------------------------------------------------------------------*/
 #setsList li {
     cursor: pointer;
@@ -13,4 +29,7 @@ body { background: #3e5ea8; color: #e5e7eb; font-family: system-ui, sans-serif; 
     background: #50a53f;
     color :aqua;
 }
+
+/* Practice view -------------------------------------------------------------------------------------------------------*/
+
 

@@ -254,6 +254,53 @@ backNo.addEventListener("keydown", (e) => {
     if (e.key === "Enter") addCardBtn.click();
 })
 
+//Practice view ------------------------------------------------------------------------------------------------------------------
+//Practice button pressed -> practiceStart func
+const practiceStart = document.getElementById("editorBtnPractice");
+practiceStart.addEventListener("click", () => {
+  startPractice(currentSetId);
+})
+
+//practiceStart func
+function startPractice(setId) {
+  let set = null;
+  for (const s of store.sets) {
+    if (s.id === setId) { 
+      set = s; break; 
+    }
+  }
+  if (!set) return;
+
+  //temp state of session
+  session = {
+    setId,
+    deck: [...set.cards],
+    i: 0,
+    showBack: false,
+    knownIds: new Set(),
+    mode: "full",  
+  }
+  //hide other views
+  document.getElementById("viewEditor").hidden = true;
+  document.getElementById("sidePanel").hidden = true;
+  document.getElementById("viewPractice").hidden = false;
+
+  //render practice view
+  renderPractice();
+};
+
+//Return button -> exit Practice
+const btnReturnFPractice = document.getElementById("exitPractice");
+btnReturnFPractice.addEventListener("click", () => {
+  document.getElementById("viewEditor").hidden = false;
+  document.getElementById("sidePanel").hidden = false;
+  document.getElementById("viewPractice").hidden = true;
+
+  renderCards();
+  renderSets();
+})
+
+function renderPractice() {}
 //show
 renderSets();
 
