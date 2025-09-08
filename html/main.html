@@ -63,6 +63,7 @@
               </div>
             </div>
             <div class="editor-addcard">
+              <p id="addCardP">Fill to add a new card</p>
               <div class="row">
                 <label class="visually-hidden" for="addCardFront">Front</label>
                 <input id="addCardFront" type="text" placeholder="Front (Q)">
@@ -78,17 +79,22 @@
             </ul>
            </div>
            <!-- Practice View  ----------------------------------------------------------------------------------- -->
-           <section id="viewPractice" hidden>
+           <section id="viewPractice" class="overlay" hidden>
             <!-- Tool bar -->
             <div class="practice-tool-bar">
               <button id="exitPractice">Exit practice</button>
               <h2 id="practiceTitle">Practice</h2>
-              <div id="practiceCounter"></div>
-              <div id="knownCounter"></div> <!-- Known cards counter -->
-              <div id="learningCounter"></div> <!-- Not yet learnt card's counter -->
+            </div>
+             <div id="practiceMeta">
+              <div id="practiceSetName">—</div>
+              <div id="practiceCounters">
+                <div id="practiceCounter"></div>
+                <div id="knownCounter"></div> <!-- Known cards counter -->
+                <div id="learningCounter"></div> <!-- Not yet learnt card's counter -->
+              </div>
             </div>
             <!-- Flashcard view -->
-             <div id="practiceCard" class="whole-card" role="button" aria-atomic="Flashcard">
+             <div id="practiceCard" class="whole-card" role="button" aria-label="Flashcard">
               <div id="flashCardFront" class="card-face-f"></div>
               <div id="flashCardBack" class="card-face-b"></div>
              </div>
