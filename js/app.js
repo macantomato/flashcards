@@ -265,6 +265,7 @@ practiceStart.addEventListener("click", () => {
 
 //practiceStart func
 function startPractice(setId) {
+  currentSetId = setId;
   let set = null;
   for (const s of store.sets) {
     if (s.id === setId) { 
@@ -294,13 +295,18 @@ function startPractice(setId) {
 //Return button -> exit Practice
 const btnReturnFPractice = document.getElementById("exitPractice");
 btnReturnFPractice.addEventListener("click", () => {
+  exitPractice();
+})
+
+function exitPractice() {
+  session = null;
+  currentSetId = null;
   document.getElementById("viewEditor").hidden = false;
   document.getElementById("sidePanel").hidden = false;
   document.getElementById("viewPractice").hidden = true;
-
   renderCards();
   renderSets();
-})
+}
 
 function renderPractice() {
   if (!session) return;
@@ -310,8 +316,8 @@ function renderPractice() {
   const idx = Math.min(session.i + 1, total);
 
   document.getElementById("practiceCounter").textContent = `${idx}/${total}`;
-  document.getElementById("knownCounter").textContent = `Known: ${session.knownIds.length}`;
-  document.getElementsByName("learningCounter").textContent = `Learning: ${session.knownIds.length - session.deck.length}`;
+  document.getElementById("knownCounter").textContent = `Known: ${session.knownIds.size}`;
+  document.getElementsByName("learningCounter").textContent = `Learning: ${session.knownIds.size - session.deck.length}`;
 
   const frontPractice = document.getElementById("flashCardFront");
   const backPractice = document.getElementById("flashCardBack");
@@ -338,11 +344,8 @@ function flipCard() {
 function nextCard() {
   if (!session) return;
   session.i += 1;
-  console.log("The session index: " + session.i);
-  console.log("The session length: " + session.deck.length);
   session.showBack = false;
   if (session.i >= session.deck.length) {
-    console.log("The round has ended!");
     endOfRound(); } else {
       renderPractice();
     }
@@ -387,6 +390,12 @@ btnFullReset.addEventListener("click", () => {
   fullRestart();
 })
 
+//BUTTON: Learning set
+const btnLearnSet = document.getElementById("btnPracticeReset");
+btnLearnSet.addEventListener("click",() => {
+  keepLearning();
+})
+
 document.addEventListener("keydown", (e) => {
   if (!session) return;
   if (e.key === " ") { e.preventDefault(); flipCard(); }
@@ -398,22 +407,62 @@ document.addEventListener("keydown", (e) => {
 //end of round
 function endOfRound() {
   if (!session) return;
-  document.getElementById("learningCounter").hidden = true;
-  document.getElementById("knownCounter").hidden = true;
-  document.getElementById("practiceCounter").hidden = true;
-  document.getElementById("practiceCard").hidden = true;
-  document.getElementById("progressBar").hidden = true;
-  document.getElementById("practiceOptions").hidden = true;
-  document.getElementById("practiceEnd").hidden = false;
+  loadUi();
+  if (session.deck.length === session.knownIds.size) {
+    document.getElementById("practiceResetDiv").hidden = true;
+  }
   return;
 }
 
 function keepLearning() {
   if (!session) return;
+  const uknown = session.deck.filter(c => !session.knownIds.has(c.id));
+  if (uknown.length === 0) {
+    let set = null;
+    for (const s of store.sets) {
+      if (s.id === session.setId) { 
+        set = s; break; 
+      }
+    }
+    if (!set) return;
+    session.deck = [...set.cards];
+    session.i = 0;
+
+    for (x in session.cards){
+    session.showBack = false;
+    }
+
+    renderPractice();
+
+  }
+
+  session.deck = uknown;
+  session.i = 0;
+  for (x in session.cards){
+    session.showBack = false;
+  }
+  session.knownIds = new Set();
+  session.mode = "uknowns";
+
+  reverseUi();
+  renderPractice();
 }
 
 function fullRestart() {
-  //reverse
+  if(!session) return;
+
+  reverseUi();
+
+  //render practice again as normal
+  session.i = 0;
+  for (x in session.cards){
+    session.showBack = false;
+  }
+  renderPractice();
+}
+
+//Ui loads/switch
+function reverseUi() {
   document.getElementById("learningCounter").hidden = false;
   document.getElementById("knownCounter").hidden = false;
   document.getElementById("practiceCounter").hidden = false;
@@ -421,10 +470,16 @@ function fullRestart() {
   document.getElementById("progressBar").hidden = false;
   document.getElementById("practiceOptions").hidden = false;
   document.getElementById("practiceEnd").hidden = true;
+}
 
-  //start practice again as normal
-  session.i = 1;
-  startPractice();
+function loadUi() {
+  document.getElementById("learningCounter").hidden = true;
+  document.getElementById("knownCounter").hidden = true;
+  document.getElementById("practiceCounter").hidden = true;
+  document.getElementById("practiceCard").hidden = true;
+  document.getElementById("progressBar").hidden = true;
+  document.getElementById("practiceOptions").hidden = true;
+  document.getElementById("practiceEnd").hidden = false;
 }
 
 //show
