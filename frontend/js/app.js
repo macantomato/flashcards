@@ -328,15 +328,16 @@ function renderPractice() {
 
   const frontPractice = document.getElementById("flashCardFront");
   const backPractice = document.getElementById("flashCardBack");
+  const cardEl        = document.getElementById("practiceCard");
 
   //show based on session showback
   frontPractice.textContent = card ? card.front : "—";
   backPractice.textContent  = card ? card.back  : "—";
   backPractice.hidden  = !session.showBack;
   frontPractice.hidden =  session.showBack;
-  console.log("Current session deck length: " + session.deck.length);
-  console.log("Current session i: " + session.i);
-  console.log("Session known Id's : " + session.knownIds.size);
+
+  cardEl.classList.toggle("is-flipped", !!session.showBack);
+  cardEl.setAttribute("aria-label", session.showBack ? "Flashcard back" : "Flashcard front");
 }
 
 function currentCard() {

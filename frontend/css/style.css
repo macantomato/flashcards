@@ -14,7 +14,7 @@
   --space-3:12px;
   --space-4:16px;
   --space-6:24px;
-  --shadow:0 8px 24px rgba(0,0,0, 35);
+  --shadow:0 8px 24px rgba(0,0,0, .35);
   --ring:0 0 0 3px rgba(107,124,255,.35);
 }
 
@@ -87,6 +87,7 @@ input::placeholder{color:#7c87a6}
 .delBtnCard{background:#2a1a1a;border-color:#442424}
 .delBtnCard:hover{background:#361f1f}
 
+
 /* ---------- Practice overlay ---------- */
 #viewPractice.overlay{
   position:fixed; inset:0; z-index:1000; overflow:auto;
@@ -126,11 +127,58 @@ input::placeholder{color:#7c87a6}
 .progress-bar{height:100%; width:0%; background:var(--accent); transition:width .2s}
 
 /* Practice actions */
-#practiceOptions{display:flex; gap:var(--space-3); margin-top:var(--space-4)}
+#practiceOptions{display:flex; width: fit-content; margin-left:auto; margin-right: auto; gap:var(--space-3); margin-top:var(--space-4)}
 #practiceOptions button{
   background:#0e1530; border-color:#27345c;
 }
 #practiceOptions button:hover{background:#131b3d; border-color:#33457c}
+
+#practiceCard{
+  perspective: 1000px;
+  position: relative;
+  overflow: hidden;     /* <-- key: prevents the faces from overlaying rows below */
+  z-index: 0;           /* keep it below the controls row */
+}
+
+#practiceOptions,
+.progressBar,
+#practiceEnd{
+  position: relative;
+  z-index: 1;
+}
+
+/* Inner flip container */
+#practiceCard .flip-inner{
+  position: relative;
+  width: 100%;
+  min-height: inherit;  /* inherits 220px from .whole-card */
+  transform-style: preserve-3d;
+  transition: transform .5s ease;
+  will-change: transform;
+}
+
+/* Faces fill the card but don't intercept clicks meant for buttons below */
+#flashCardFront,
+#flashCardBack{
+  position: absolute;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  border-radius: var(--radius);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: transparent;
+  font-size: 1.25rem;
+  pointer-events: none;  /* <-- ensures only the card/button get the clicks */
+}
+
+#flashCardBack{ transform: rotateY(180deg); }
+
+/* Optional: if you use Reduce Motion, keep flip instant */
+@media (prefers-reduced-motion: reduce){
+  #practiceCard .flip-inner{ transition: none; }
+}
+
+#practiceCard.is-flipped .flip-inner{ transform: rotateY(180deg); }
 
 /* End-of-round block */
 #practiceEnd{

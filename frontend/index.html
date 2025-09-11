@@ -47,7 +47,7 @@
             <!--Editor top bar -->
             <div id="topBar">
               <h2 id="editorTitle">
-                Edit set<span id="editorSet">-</span>
+                Edit set <span id="editorSet">-</span>
               </h2>
             </div>
             <div id="editorActions">
@@ -94,10 +94,12 @@
               </div>
             </div>
             <!-- Flashcard view -->
-             <div id="practiceCard" class="whole-card" role="button" aria-label="Flashcard">
-              <div id="flashCardFront" class="card-face-f"></div>
-              <div id="flashCardBack" class="card-face-b"></div>
-             </div>
+            <div id="practiceCard" class="whole-card" role="button" aria-label="Flashcard front">
+              <div class="flip-inner">
+                <div id="flashCardFront" class="card-face-f"></div>
+                <div id="flashCardBack" class="card-face-b"></div>
+              </div>
+            </div>
             <!-- Progress bar -->
             <div class="progressBar">
               <div id="progressBar" class="progress-bar"></div>
