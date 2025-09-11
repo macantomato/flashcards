@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flashcards MVP</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-bar">
+        <div class="header-left">
+          <h1>Flashcards </h1>
+        </div>
+
+        <div class="header-right">
+          <button id="linkGit" data-url="https://github.com/macantomato">Link - GitHub </button>
+          <button id="linkSelfSite" title="Not yet done">Link - Portfolio </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container app">
+      <div class="grid-2">
+        <aside id="sidePanel" class="panel panel-sets">
+          <!-- For the sets location etc - (left) -->
+           <div class="panel-body">
+            <h2>Sets</h2>
+
+           <!-- Set row -->
+           <div class="add-set">
+            <label class="visually-hidden" for="newSetName">New set name</label>
+            <input id="newSetName" type="text" placeholder="New set name">
+            <button id="buttonAddSet" type="button">Add</button>
+           </div>
+
+           <ul id="setsList">
+            <!--Set list goes here -->
+           </ul>
+           </div>
+        </aside>
+
+          <!-- Editor view -->
+        <section class="panel panel-content">
+           <div id="viewEditor" hidden >
+            <!--Editor top bar -->
+            <div id="topBar">
+              <h2 id="editorTitle">
+                Edit set<span id="editorSet">-</span>
+              </h2>
+            </div>
+            <div id="editorActions">
+              <button id="editorBtnPractice">Practice </button>
+              <button id="editorBtnDelete">Delete </button>
+            </div>
+            <!--Rename set -->
+            <div id="renameRow">
+              <div class="row">
+                <label class="visually-hidden" for="renameSetInput">Rename set</label>
+                <input id="renameSetInput" type="text" placeholder="Rename set">
+                <button id="btnRenameSet" type="button">Rename </button>
+              </div>
+            </div>
+            <div class="editor-addcard">
+              <p id="addCardP">Fill to add a new card</p>
+              <div class="row">
+                <label class="visually-hidden" for="addCardFront">Front</label>
+                <input id="addCardFront" type="text" placeholder="Front (Q)">
+              </div>
+              <div class="row">
+                <label class="visually-hidden" for="addCardBack">Back</label>
+                <input id="addCardBack" type="text" placeholder="Back (Ans)">
+              </div>
+              <button id="btnAddCard" type="button">Add card</button>
+            </div>
+            <!--Card list (js) fill -->
+            <ul id="cardList" class="cards-list" aria-label="Cards in this set">
+            </ul>
+           </div>
+           <!-- Practice View  ----------------------------------------------------------------------------------- -->
+           <section id="viewPractice" class="overlay" hidden>
+            <!-- Tool bar -->
+            <div class="practice-tool-bar">
+              <button id="exitPractice">Exit practice</button>
+              <h2 id="practiceTitle">Practice</h2>
+            </div>
+             <div id="practiceMeta">
+              <div id="practiceSetName">—</div>
+              <div id="practiceCounters">
+                <div id="practiceCounter"></div>
+                <div id="knownCounter"></div> <!-- Known cards counter -->
+                <div id="learningCounter"></div> <!-- Not yet learnt card's counter -->
+              </div>
+            </div>
+            <!-- Flashcard view -->
+             <div id="practiceCard" class="whole-card" role="button" aria-label="Flashcard">
+              <div id="flashCardFront" class="card-face-f"></div>
+              <div id="flashCardBack" class="card-face-b"></div>
+             </div>
+            <!-- Progress bar -->
+            <div class="progressBar">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <!-- Flashcard option -->
+             <div id="practiceOptions">
+              <button id="practiceKnowBtn">Know (←) </button> <!-- Mark card as "known", won't show up for next -->
+              <button id="flipCardBtn">Flip (space)</button>
+              <button id="practiceNextBtn">Next (→)</button> <!-- Next card without marking as known -->
+             </div>
+            <!-- End of set -->
+             <div id="practiceEnd" class="End" hidden>
+              <p id="endPara">The set is done, restart or choose another set! </p>
+              <div id="practiceResetDiv">
+               <button id="btnPracticeReset" class="button"> Keep going with learning card's</button>
+              </div>
+              <button id="btnPracticeHardReset">Reset set, restart</button>
+             </div>
+           </section>
+        </section>
+      </div>
+    </main>
+
+    <script src="js/app.js?v=dev3" defer></script>
+  </body>
+</html>

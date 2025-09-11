@@ -1,0 +1,143 @@
+/* ---------- Tokens ---------- */
+:root{
+  --bg-0:#0b1020;      /* page */
+  --bg-1:#10172a;      /* panel */
+  --bg-2:#121a33;      /* card/rows */
+  --border:#1f2a44;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+  --accent:#6b7cff;    /* blue-purple */
+  --accent-600:#5565e0;
+  --success:#22c55e;
+  --radius:12px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-6:24px;
+  --shadow:0 8px 24px rgba(0,0,0, 35);
+  --ring:0 0 0 3px rgba(107,124,255,.35);
+}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg-0); color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans";
+  line-height:1.5;
+}
+[hidden]{display:none!important}
+a,button,input{transition:background .18s,color .18s,border-color .18s,transform .18s,box-shadow .18s}
+:focus-visible{outline:none; box-shadow:var(--ring)}
+
+/* ---------- Layout ---------- */
+.container{max-width:1100px;margin:0 auto;padding:0 var(--space-4)}
+.header-bar{display:flex;align-items:center;justify-content:space-between;padding:var(--space-4) 0}
+.grid-2{
+  display:grid; grid-template-columns:280px 1fr; gap:var(--space-6); align-items:start;
+}
+@media (max-width:900px){ .grid-2{ grid-template-columns:1fr } }
+
+/* ---------- Panels ---------- */
+.panel{
+  background:var(--bg-1); border:1px solid var(--border);
+  border-radius:var(--radius); box-shadow:var(--shadow);
+}
+.panel .panel-body{padding:var(--space-6)}
+.panel-sets h2,.panel-content h2{margin:0 0 var(--space-4) 0}
+
+/* ---------- Buttons & Inputs ---------- */
+button{
+  padding:10px 12px; border:1px solid var(--border); border-radius:10px;
+  background:#0e1530; color:var(--text); cursor:pointer;
+}
+button:hover{background:#131b3d; border-color:#27345c}
+button:active{transform:translateY(1px)}
+input[type="text"]{
+  width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:10px;
+  background:#0f1734; color:var(--text);
+}
+input::placeholder{color:#7c87a6}
+.row{display:flex;gap:var(--space-3)}
+.row>*{flex:1 1 auto}
+
+/* Header buttons */
+#linkGit,#linkSelfSite{border-radius:10px;background:#0e1530;border:1px solid var(--border)}
+#linkGit:hover,#linkSelfSite:hover{background:#131b3d}
+
+/* ---------- Sets list (left) ---------- */
+#setsList{list-style:none;margin:var(--space-4) 0 0;padding:0}
+#setsList li{
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--bg-2); border:1px solid var(--border);
+  padding:10px 12px; border-radius:10px; cursor:pointer; margin-bottom:var(--space-2);
+}
+#setsList li:hover{background:#162048; border-color:#2a3a6b}
+#setsList li.active{background:#1a2760; border-color:#3b4da0}
+
+/* ---------- Editor cards list ---------- */
+.cards-list{list-style:none;margin:var(--space-4) 0 0;padding:0}
+.cards-list .card-item{
+  display:grid; grid-template-columns:1fr 1fr auto; gap:var(--space-3);
+  background:var(--bg-2); border:1px solid var(--border);
+  padding:10px 12px; border-radius:10px; margin-bottom:var(--space-2);
+}
+.card-front{font-weight:600}
+.card-back{color:var(--muted)}
+.delBtnCard{background:#2a1a1a;border-color:#442424}
+.delBtnCard:hover{background:#361f1f}
+
+/* ---------- Practice overlay ---------- */
+#viewPractice.overlay{
+  position:fixed; inset:0; z-index:1000; overflow:auto;
+  background:linear-gradient(180deg, rgba(13,17,37,.96), rgba(11,16,32,.98));
+  padding:var(--space-6);
+}
+.practice-tool-bar{
+  display:grid; grid-template-columns:auto 1fr; gap:var(--space-3); align-items:center;
+}
+.practice-tool-bar h2{margin:0}
+#exitPractice{background:#0e1530}
+#exitPractice:hover{background:#131b3d}
+
+/* Meta row above the card (title + counters) */
+#practiceMeta{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:var(--space-4); margin-top:var(--space-3); margin-bottom:var(--space-3);
+}
+#practiceSetName{color:var(--muted)}
+#practiceCounters{display:flex; gap:var(--space-4); color:var(--muted)}
+
+/* Flashcard & progress */
+.whole-card{
+  margin:var(--space-6) 0; min-height:220px;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  padding:var(--space-6);
+  background:#0f1734; color:var(--text);
+  border:1px solid #22305a; border-radius:var(--radius); box-shadow:var(--shadow);
+  cursor:pointer;
+}
+.whole-card:active{transform:scale(.995)}
+.card-face-f,.card-face-b{font-size:1.25rem}
+
+.progressBar{
+  height:8px; background:#1e293b; border-radius:9999px; overflow:hidden; border:1px solid #25324a;
+}
+.progress-bar{height:100%; width:0%; background:var(--accent); transition:width .2s}
+
+/* Practice actions */
+#practiceOptions{display:flex; gap:var(--space-3); margin-top:var(--space-4)}
+#practiceOptions button{
+  background:#0e1530; border-color:#27345c;
+}
+#practiceOptions button:hover{background:#131b3d; border-color:#33457c}
+
+/* End-of-round block */
+#practiceEnd{
+  margin-top:var(--space-6); padding:var(--space-4);
+  background:#0f1734; border:1px solid #22305a; border-radius:var(--radius);
+}
+#btnPracticeReset{background:#15204a; border-color:#2a3a6b}
+#btnPracticeReset:hover{background:#1a2760}
+#btnPracticeHardReset{background:#2b2038; border-color:#3c2b54}
+#btnPracticeHardReset:hover{background:#37294a}
