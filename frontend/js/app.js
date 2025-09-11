@@ -453,9 +453,7 @@ function keepLearning() {
 
 function fullRestart() {
   if(!session) return;
-
   reverseUi();
-
   //render practice again as normal
   startPractice(currentSetId);
 }

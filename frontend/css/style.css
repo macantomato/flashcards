@@ -142,7 +142,7 @@ input::placeholder{color:#7c87a6}
 #practiceCard{
   perspective: 1000px;
   position: relative;
-  overflow: hidden;     /* <-- key: prevents the faces from overlaying rows below */
+  overflow: hidden;     
   z-index: 0;           /* keep it below the controls row */
 }
 
@@ -157,13 +157,13 @@ input::placeholder{color:#7c87a6}
 #practiceCard .flip-inner{
   position: relative;
   width: 100%;
-  min-height: inherit;  /* inherits 220px from .whole-card */
+  min-height: inherit;  
   transform-style: preserve-3d;
   transition: transform .5s ease;
   will-change: transform;
 }
 
-/* Faces fill the card but don't intercept clicks meant for buttons below */
+
 #flashCardFront,
 #flashCardBack{
   position: absolute;
@@ -174,12 +174,11 @@ input::placeholder{color:#7c87a6}
   -webkit-backface-visibility: hidden;
   background: transparent;
   font-size: 1.25rem;
-  pointer-events: none;  /* <-- ensures only the card/button get the clicks */
+  pointer-events: none; 
 }
 
 #flashCardBack{ transform: rotateY(180deg); }
 
-/* Optional: if you use Reduce Motion, keep flip instant */
 @media (prefers-reduced-motion: reduce){
   #practiceCard .flip-inner{ transition: none; }
 }
