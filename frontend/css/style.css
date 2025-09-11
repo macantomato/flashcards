@@ -87,6 +87,12 @@ input::placeholder{color:#7c87a6}
 .delBtnCard{background:#2a1a1a;border-color:#442424}
 .delBtnCard:hover{background:#361f1f}
 
+#topBar {
+  padding-top: var(--space-2);
+  padding: var(--space-4);
+}
+#editorActions {padding-bottom: var(--space-2);}
+
 
 /* ---------- Practice overlay ---------- */
 #viewPractice.overlay{
